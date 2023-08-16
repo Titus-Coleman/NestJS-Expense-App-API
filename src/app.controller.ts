@@ -2,7 +2,7 @@ import { Controller, Delete, Get, Post, Put, Param, Body, HttpCode, ParseUUIDPip
 import { ReportType } from "./data"
 import { AppService } from "./app.service"
 import reportTypeCheck from "./utils/reportTypeCheck"
-import { CreateReportDto } from "./dtos/report.dto"
+import { CreateReportDto, UpdateReportDto } from "./dtos/report.dto"
 
 @Controller('report')
 export class AppController {
@@ -43,10 +43,10 @@ export class AppController {
   @Put('/:type/:id')
   editReport(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() {amount, source, typeName}: CreateReportDto,
+    @Body() body: UpdateReportDto,
     @Param('type', new ParseEnumPipe(ReportType)) type: string
   ) {
-    return this.appService.updateReport(id, reportTypeCheck(type) ,{amount, source, typeName})
+    return this.appService.updateReport(id, reportTypeCheck(type),body)
      }
 
   @HttpCode(204)

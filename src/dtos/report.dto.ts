@@ -1,6 +1,8 @@
 import { IsNumber, IsPositive, IsString, IsNotEmpty, IsOptional } from "class-validator"; 
+import { IsValidReportType } from "src/utils/reportTypeValidator";
 
 export class CreateReportDto {
+   
     @IsNumber()
     @IsPositive()
     amount: number;
@@ -9,7 +11,21 @@ export class CreateReportDto {
     @IsNotEmpty()
     source: string;
 
+}
+
+
+export class UpdateReportDto {
+    @IsOptional()
+    @IsNumber()
+    @IsPositive()
+    amount: number;
+
     @IsOptional()
     @IsString()
-    typeName?: string
+    source: string;
+
+    @IsOptional()
+    @IsString()
+    @IsValidReportType(['income', 'expense'])
+    type: string
 }

@@ -1,11 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { ReportType, data } from "./data";
 import { v4 as uuid } from "uuid"
+import reportTypeCheck from "./utils/reportTypeCheck";
+import { CreateReportDto, UpdateReportDto } from "./dtos/report.dto";
 
 interface ReportData {
   amount: number, 
   source: string
-  typeName?: string}
+}
+
+interface UpdateReportData {
+  amount?: number, 
+  source?: string
+  typeName?: string
+}
 
 @Injectable()
 export class AppService {
@@ -38,9 +46,11 @@ export class AppService {
     return newReport
   }
 
-  updateReport(id: string, type: ReportType, {amount, source, typeName}: ReportData ){
+
+
+  updateReport(id: string, type: ReportType, body: UpdateReportData ){
     const reportToUpdate = data.report
-      .filter((report) => report.type === type)
+      // .filter((report) => report.type === type)
       .find((report )=> report.id === id)
 
       if(!reportToUpdate) return;
@@ -48,13 +58,27 @@ export class AppService {
       const reportIndex = data.report
         .findIndex((report) => report.id === reportToUpdate.id)
 
-      data.report[reportIndex] = {
+
+        data.report[reportIndex] = {
           ...data.report[reportIndex],
-          amount,
-          source,
+          ...body,
           updated_at: new Date(),
-          type: typeName === "income" ? ReportType.Income : ReportType.Expense
-        }
+        } 
+      //  if(!body.typeName) {
+      //   data.report[reportIndex] = {
+      //     ...data.report[reportIndex],
+      //     ...body,
+      //     updated_at: new Date(),
+      //   } 
+      //  } else {
+      //   data.report[reportIndex] = {
+      //     ...data.report[reportIndex],
+      //     ...body,
+      //     type: reportTypeCheck(body.typeName) ,
+      //     updated_at: new Date(),
+      //   }
+      //  }
+      
   }
 
   deleteReport(id: string){
