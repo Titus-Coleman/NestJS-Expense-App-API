@@ -1,6 +1,6 @@
 ## Description
 
-Example REST API for an Income/Expense tracking app
+Example REST API for an Income/Expense tracking app built using NestJS
 
 For use as reference / study
 
