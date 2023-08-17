@@ -21,7 +21,7 @@ export const data: Data = {
         {
             id: "ec486468-ec5d-4599-815b-04f2e60889c8",
             source: "Salary",
-            amount: 7500,
+            amount: 177500,
             created_at: new Date(),
             updated_at: new Date(),
             type: ReportType.Income,

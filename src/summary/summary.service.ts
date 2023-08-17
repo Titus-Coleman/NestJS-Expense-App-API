@@ -5,7 +5,7 @@ import { SummaryResponseDto } from 'src/dtos/summary.dto';
 @Injectable()
 export class SummaryService {
 
-    getSummary(type: ReportType): SummaryResponseDto{
+    getReportSummary(type: ReportType): SummaryResponseDto{
        const totalSum = data.report
         .filter(report => report.type === type)
         .reduce((acc, obj) => {return acc + obj.amount;},0)
@@ -19,7 +19,7 @@ export class SummaryService {
     }
 
 
-    getNetSummary(){
+    getNetSummary(): SummaryResponseDto{
         const totalIncome = data.report
         .filter(report => report.type === "income")
         .reduce((acc, obj) => {return acc + obj.amount;},0)

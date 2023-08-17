@@ -12,14 +12,14 @@ export class SummaryController {
       ){}
 
       @Get()
-      getNetSummary(){
+      getNetSummary(): SummaryResponseDto{
         return this.summaryService.getNetSummary()
       }
 
       @Get('/:type')
-      getSummary(
+      getReportSummary(
         @Param('type', new ParseEnumPipe(ReportType)) type: string
       ): SummaryResponseDto {
-        return this.summaryService.getSummary(reportTypeCheck(type))
+        return this.summaryService.getReportSummary(reportTypeCheck(type))
       }
 }
